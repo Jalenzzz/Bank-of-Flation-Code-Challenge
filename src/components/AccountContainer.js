@@ -30,6 +30,7 @@ function AccountContainer() {
       <AddTransactionForm
         transactions={transactions}
         setTransactions={setTransactions}
+        getTransactions={getTransactions}
       />
       <TransactionsList transactions={transactions} />
     </div>

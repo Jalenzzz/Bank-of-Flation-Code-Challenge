@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 
 function AddTransactionForm(props) {
-  const { transactions, setTransactions } = props;
+  const { transactions, setTransactions, getTransactions } = props;
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
   function submitK() {
-    //Kienyeji
-    //Better way
-    //date validation
-
     if (date === "" || category === "" || amount === "") {
       return;
     }
@@ -27,6 +23,48 @@ function AddTransactionForm(props) {
     newArr.push(data);
     console.log(newArr);
     setTransactions(newArr);
+    setDate("");
+    setDescription("");
+    setCategory("");
+    setAmount("");
+  }
+
+  function submit2() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = {
+      id: Date.now(),
+      date,
+      description,
+      category,
+      amount,
+    };
+
+    const raw = JSON.stringify({
+      date,
+      description,
+      category,
+      amount,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:8001/transactions", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setDate("");
+        setDescription("");
+        setCategory("");
+        setAmount("");
+        getTransactions();
+      })
+      .catch((error) => console.error(error));
   }
   return (
     <div className="ui segment">
@@ -61,7 +99,7 @@ function AddTransactionForm(props) {
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-        <button className="ui button" type="submit" onClick={submitK}>
+        <button className="ui button" type="submit" onClick={submit2}>
           Add Transaction
         </button>
       </div>
