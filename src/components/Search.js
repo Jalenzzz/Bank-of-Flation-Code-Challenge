@@ -6,13 +6,13 @@ function Search(props) {
 
   const doSearch = (e) => {
     let s = e.target.value.toLowerCase();
-    console.log(s);
     setSearch(s);
 
     if (s.length < 4) {
       getTransactions(transactions);
       return;
     }
+
     let filteredTransaction = [];
     for (let i = 0; i < transactions.length; i++) {
       let trans = transactions[i];
@@ -25,8 +25,6 @@ function Search(props) {
     }
     console.log(filteredTransaction);
     setTransactions(filteredTransaction);
-
-    // setSearch(filteredTransaction);
   };
 
   return (
