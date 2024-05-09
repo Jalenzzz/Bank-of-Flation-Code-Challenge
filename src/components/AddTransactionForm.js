@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 
+// Functional component for adding transactions
 function AddTransactionForm(props) {
+  // Destructuring props to extract necessary variables and functions
   const { transactions, setTransactions, getTransactions } = props;
+
+  // State variables for form fields
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  function submitK() {
+  // Function to handle form submission for local data update
+  function submit1() {
+    // Check for empty fields
     if (date === "" || category === "" || amount === "") {
       return;
     }
 
+    // Create new transaction data
     const data = {
       id: Date.now(),
       date,
@@ -19,20 +26,26 @@ function AddTransactionForm(props) {
       category,
       amount,
     };
+
+    // Update transactions array
     let newArr = [...transactions];
     newArr.push(data);
     console.log(newArr);
     setTransactions(newArr);
+
+    // Clear form fields
     setDate("");
     setDescription("");
     setCategory("");
     setAmount("");
   }
 
-  function submit2() {
+  // Function to handle form submission for API call
+  function submit() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
+    // Create transaction data object
     const data = {
       id: Date.now(),
       date,
@@ -66,6 +79,8 @@ function AddTransactionForm(props) {
       })
       .catch((error) => console.error(error));
   }
+
+  // Render the form component
   return (
     <div className="ui segment">
       <div className="ui form">
@@ -99,7 +114,7 @@ function AddTransactionForm(props) {
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-        <button className="ui button" type="submit" onClick={submit2}>
+        <button className="ui button" type="submit" onClick={submit}>
           Add Transaction
         </button>
       </div>

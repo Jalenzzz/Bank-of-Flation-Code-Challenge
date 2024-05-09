@@ -4,7 +4,9 @@ import Search from "./Search";
 import AddTransactionForm from "./AddTransactionForm";
 
 function AccountContainer() {
+  // State to hold the list of transactions
   const [transactions, setTransactions] = useState([]);
+  // Function to fetch transactions from the server
   const getTransactions = () => {
     const requestOptions = {
       method: "GET",
