@@ -26,7 +26,11 @@ function AccountContainer() {
 
   return (
     <div>
-      <Search />
+      <Search
+        transactions={transactions}
+        setTransactions={setTransactions}
+        getTransactions={getTransactions}
+      />
       <AddTransactionForm
         transactions={transactions}
         setTransactions={setTransactions}
